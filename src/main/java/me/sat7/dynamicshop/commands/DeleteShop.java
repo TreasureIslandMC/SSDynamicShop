@@ -12,34 +12,24 @@ public final class DeleteShop {
     }
 
     static boolean deleteShop(String[] args, Player player) {
-        if(args.length >= 2)
-        {
-            if(!player.hasPermission("dshop.admin.deleteshop"))
-            {
+        if (args.length >= 2) {
+            if (!player.hasPermission("dshop.admin.deleteshop")) {
                 player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.NO_PERMISSION"));
                 return true;
             }
 
-            try
-            {
-                if(ShopUtil.ccShop.get().contains(args[1]))
-                {
-                    ShopUtil.ccShop.get().set(args[1],null);
+            try {
+                if (ShopUtil.ccShop.get().contains(args[1])) {
+                    ShopUtil.ccShop.get().set(args[1], null);
                     ShopUtil.ccShop.save();
                     player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("SHOP_DELETED"));
-                }
-                else
-                {
+                } else {
                     player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.SHOP_NOT_FOUND"));
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.SHOP_NOT_FOUND"));
             }
-        }
-        else
-        {
+        } else {
             player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.WRONG_USAGE"));
         }
         return false;
