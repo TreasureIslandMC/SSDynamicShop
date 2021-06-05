@@ -12,20 +12,17 @@ public final class Convert {
     }
 
     static boolean convert(String[] args, Player player) {
-        if(!player.hasPermission("dshop.admin.convert"))
-        {
+        if (!player.hasPermission("dshop.admin.convert")) {
             player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.NO_PERMISSION"));
             return true;
         }
 
-        if(args.length != 2)
-        {
+        if (args.length != 2) {
             player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.WRONG_USAGE"));
             return true;
         }
 
-        if(!args[1].equals("Shop"))
-        {
+        if (!args[1].equals("Shop")) {
             player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.WRONG_USAGE"));
             return true;
         }

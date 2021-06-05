@@ -29,7 +29,7 @@ import java.util.Random;
 
 public final class DynamicShop extends JavaPlugin implements Listener {
 
-    private static Economy econ = null; // 볼트에 물려있는 이코노미
+    private static Economy econ = null;
 
     public static Economy getEconomy() {
         return econ;
@@ -53,7 +53,6 @@ public final class DynamicShop extends JavaPlugin implements Listener {
         console = plugin.getServer().getConsoleSender();
         initCustomConfigs();
 
-        // 볼트 이코노미 셋업
         if (!setupEconomy()) {
             console.sendMessage(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
@@ -75,12 +74,7 @@ public final class DynamicShop extends JavaPlugin implements Listener {
         new UpdateCheck();
 
         // bstats
-        Metrics metrics = new Metrics(this);
-
-        // Optional: Add custom charts
-        // todo: 이거 지워야함... 그냥 지우니까 에러뜸.
-        // TODO delete this without it causing errors
-        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
+        new Metrics(this,4258);
     }
 
     public void startCullLogsTask() {
@@ -121,11 +115,9 @@ public final class DynamicShop extends JavaPlugin implements Listener {
     }
 
     private void initCommands() {
-        // 명령어 등록 (개별 클레스로 되어있는것들)
         getCommand("DynamicShop").setExecutor(new Root());
         getCommand("shop").setExecutor(new Optional());
 
-        // 자동완성
         getCommand("DynamicShop").setTabCompleter(this);
         getCommand("shop").setTabCompleter(this);
     }
@@ -177,13 +169,11 @@ public final class DynamicShop extends JavaPlugin implements Listener {
         ccSign.save();
     }
 
-    // 명령어 자동완성
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         return TabCompleteUtil.onTabCompleteBody(this, sender, cmd, commandLabel, args);
     }
 
-    // 볼트 이코노미 초기화
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             console.sendMessage(Constants.DYNAMIC_SHOP_PREFIX + " Vault Not Found");

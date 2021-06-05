@@ -16,8 +16,7 @@ public final class Reload {
     }
 
     static void reload(Player player) {
-        if(!player.hasPermission("dshop.admin.reload"))
-        {
+        if (!player.hasPermission("dshop.admin.reload")) {
             player.sendMessage(DynamicShop.dsPrefix + LangUtil.ccLang.get().getString("ERR.NO_PERMISSION"));
             return;
         }

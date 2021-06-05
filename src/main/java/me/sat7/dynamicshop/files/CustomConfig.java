@@ -15,27 +15,25 @@ public class CustomConfig {
     protected FileConfiguration customFile; // 버킷의 데이터 타입
 
     //Finds or generates the custom config file
-    public void setup(String name, String folder){
+    public void setup(String name, String folder) {
         String path = name + ".yml";
-        if(folder != null) path = folder+"/"+path;
+        if (folder != null) path = folder + "/" + path;
         file = new File(Bukkit.getServer().getPluginManager().getPlugin("DynamicShop").getDataFolder(), path);
 
-        if (!file.exists()){
-            try{
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
-            }catch (IOException e){
+            } catch (IOException e) {
                 //System.out.println("CreateFileFail");
             }
         }
         customFile = YamlConfiguration.loadConfiguration(file);
     }
 
-    public boolean open(String name, String folder)
-    {
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("DynamicShop").getDataFolder(), folder+"/"+name + ".yml");
+    public boolean open(String name, String folder) {
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("DynamicShop").getDataFolder(), folder + "/" + name + ".yml");
 
-        if (!file.exists())
-        {
+        if (!file.exists()) {
             DynamicShop.console.sendMessage(Constants.DYNAMIC_SHOP_PREFIX + name + " not found");
             return false;
         }
@@ -44,28 +42,26 @@ public class CustomConfig {
         return true;
     }
 
-    public FileConfiguration get(){
+    public FileConfiguration get() {
         return customFile;
     }
 
-    public void save(){
-        try{
+    public void save() {
+        try {
             customFile.save(file);
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Couldn't save file");
         }
     }
 
-    public void reload(){
+    public void reload() {
         customFile = YamlConfiguration.loadConfiguration(file);
     }
 
-    public static FileConfiguration GetFileFromPath(String name, String folder)
-    {
-        File tempFile = new File(Bukkit.getServer().getPluginManager().getPlugin("DynamicShop").getDataFolder(), folder+"/"+name + ".yml");
+    public static FileConfiguration GetFileFromPath(String name, String folder) {
+        File tempFile = new File(Bukkit.getServer().getPluginManager().getPlugin("DynamicShop").getDataFolder(), folder + "/" + name + ".yml");
 
-        if (!tempFile.exists())
-        {
+        if (!tempFile.exists()) {
             DynamicShop.console.sendMessage(Constants.DYNAMIC_SHOP_PREFIX + name + " not found");
             return null;
         }

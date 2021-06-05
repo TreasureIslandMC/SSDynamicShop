@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class DynaShopAPI {
     public static DecimalFormat df = new DecimalFormat("0.00");
@@ -31,23 +32,21 @@ public final class DynaShopAPI {
         }
     }
 
-    // 상점 설정 화면
     public static void openShopSettingGui(Player player, String shopName) {
         player.openInventory(new ShopSettings().getGui(player, shopName));
     }
 
-    // 거래화면 생성 및 열기
     public static void openItemTradeGui(Player player, String shopName, String tradeIdx) {
         player.openInventory(new ItemTrade().getGui(player, shopName, tradeIdx));
     }
 
 
-    // 아이탬 파렛트 생성 및 열기
+
     public static void openItemPalette(Player player, int page, String search) {
         player.openInventory(new ItemPalette().getGui(player, page, search));
     }
 
-    // 아이탬 셋팅창
+
     public static void openItemSettingGui(Player player, ItemStack itemStack, int tab, double buyValue, double sellValue, double minPrice, double maxPrice, int median, int stock) {
         DSItem dsItem = new DSItem(itemStack, buyValue, sellValue, minPrice, maxPrice, median, stock);
 
@@ -58,17 +57,16 @@ public final class DynaShopAPI {
         player.openInventory(new ItemSettings().getGui(player, tab, dsItem));
     }
 
-    // 스타트 페이지 생성 및 열기
     public static void openStartPage(Player player) {
         player.openInventory(new StartPage().getGui(player));
     }
 
-    // 퀵셀 창
+
     public static void openQuickSellGUI(Player player) {
         player.openInventory(new QuickSell().getGui(player));
     }
 
-    // 유저 데이터를 다시 만들고 만들어졌는지 확인함.
+
     public static boolean recreateUserData(Player player) {
         if (DynamicShop.ccUser.get().contains(player.getUniqueId().toString())) {
             return true;
@@ -83,7 +81,7 @@ public final class DynaShopAPI {
         return DynamicShop.ccUser.get().contains(player.getUniqueId().toString());
     }
 
-    // 스타트페이지 셋팅창
+
     public static void openStartPageSettingGui(Player player) {
         player.openInventory(new StartPageSettings().getGui(player));
     }
@@ -124,7 +122,7 @@ public final class DynaShopAPI {
      * @return ArrayList of ItemStack containing the items for sale in the shop
      * @throws IllegalArgumentException When the shop does not exist
      */
-    public static ArrayList<ItemStack> getShopItems(@NonNull String shopName) {
+    public static List<ItemStack> getShopItems(@NonNull String shopName) {
         if (validateShopName(shopName)) {
             ArrayList<ItemStack> list = new ArrayList<>();
             for (String s : ShopUtil.ccShop.get().getConfigurationSection(shopName).getKeys(false)) {
